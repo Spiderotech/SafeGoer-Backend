@@ -8,6 +8,7 @@ const refreshTokenSecret =
 
 export default {
   port: process.env.PORT || 3000,
+  corsOrigin: process.env.CORS_ORIGIN || "*",
 
   mongo: {
     uri: process.env.MONGO_URI || ''

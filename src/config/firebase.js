@@ -8,7 +8,9 @@ const serviceAccountPath =
 let firebaseReady = false;
 
 try {
-  const serviceAccount = JSON.parse(fs.readFileSync(serviceAccountPath));
+  const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT_JSON
+    ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON)
+    : JSON.parse(fs.readFileSync(serviceAccountPath, "utf8"));
 
   if (!admin.apps.length) {
     admin.initializeApp({

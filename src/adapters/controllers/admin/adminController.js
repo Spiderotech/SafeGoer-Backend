@@ -190,6 +190,13 @@ const adminController = (adminRepositoryInt, adminRepositoryImp, adminServiceInt
         return res.status(400).json({ status: false, message: "Title and message are required" });
       }
 
+      if (scamId) {
+        const scam = await dbrepository.getScamById(scamId);
+        if (!scam?.status) {
+          return res.status(404).json({ status: false, message: "Target scam alert was not found" });
+        }
+      }
+
       const sendResult = await sendNotificationToTokens({ title, message, scamId });
 
       const campaign = await dbrepository.createNotificationCampaign({
@@ -215,6 +222,13 @@ const adminController = (adminRepositoryInt, adminRepositoryImp, adminServiceInt
 
       if (!title || !message || !scheduledAt) {
         return res.status(400).json({ status: false, message: "Title, message and scheduledAt are required" });
+      }
+
+      if (scamId) {
+        const scam = await dbrepository.getScamById(scamId);
+        if (!scam?.status) {
+          return res.status(404).json({ status: false, message: "Target scam alert was not found" });
+        }
       }
 
       const scheduleDate = new Date(scheduledAt);

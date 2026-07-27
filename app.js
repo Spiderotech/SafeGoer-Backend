@@ -12,11 +12,13 @@ const app=express()
 const server=http.createServer(app)
 
 expressConfig(app);
-serverConfig(app);
 connectDB(config)
 routes(app,express)
 startNotificationScheduler();
 
+app.get("/health", (req, res) => {
+  res.status(200).json({ status: "ok" });
+});
 
 
 app.use((req, res, next) => {
