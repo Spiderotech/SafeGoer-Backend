@@ -8,21 +8,24 @@ import routes from './src/framework/webserver/routes/index.js';
 import { startNotificationScheduler } from "./src/framework/services/notificationScheduler.js";
 
 
-const app=express()
-const server=http.createServer(app)
+const app = express()
+const server = http.createServer(app)
 
 expressConfig(app);
-connectDB(config)
-routes(app,express)
-startNotificationScheduler();
 
 app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
+routes(app, express)
 
 app.use((req, res, next) => {
   res.status(404).json({ message: 'Route not found' });
 });
 
-serverConfig(server,config).startServer()
+serverConfig(server, config).startServer()
+
+const isDatabaseConnected = await connectDB(config)
+if (isDatabaseConnected) {
+  startNotificationScheduler();
+}

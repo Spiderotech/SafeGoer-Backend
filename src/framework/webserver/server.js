@@ -1,14 +1,18 @@
-const serverConfig = (server,config) => {
-  
-    const startServer = () => {
-      console.log(config.port);
-      server.listen(config.port,() => {
-        console.log(`Server listening on Port ${config.port}`);
-      });
-    };
-    return {
-      startServer,
-    };
+const serverConfig = (server, config) => {
+  const startServer = () => {
+    server.on("error", (error) => {
+      console.error(`Server failed to listen on port ${config.port}:`, error.message);
+      process.exit(1);
+    });
+
+    server.listen(config.port, () => {
+      console.log(`Server listening on Port ${config.port}`);
+    });
   };
-  
-  export default serverConfig;
+
+  return {
+    startServer,
+  };
+};
+
+export default serverConfig;
