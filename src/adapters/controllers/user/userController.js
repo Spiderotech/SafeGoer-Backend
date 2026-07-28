@@ -1,8 +1,8 @@
 import getAllScams from "../../../application/useCase/user/getAllScams.js";
 import getScamById from "../../../application/useCase/user/getScamById.js";
 import getScamUpdates from "../../../application/useCase/user/getScamUpdates.js";
-import savedeviceToken from "../../../application/useCase/user/saveDeviceToken.js";
-import checkurlSafety from "../../../application/useCase/user/checkUrlSafety.js";
+import savedeviceToken from "../../../application/useCase/user/savedeviceToken.js";
+import checkurlSafety from "../../../application/useCase/user/checkurlSafety.js";
 import analyzeContent from "../../../application/useCase/user/analyzeContent.js";
 
 const userController = (userRepositoryInt, userRepositoryImp, userServiceInt, userServiceImp) => {
